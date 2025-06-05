@@ -1,0 +1,8 @@
+{
+  "name": "hanami_bookshelf",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "hanami-assets": "^2.2.1"
+  }
+}
