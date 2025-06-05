@@ -4,11 +4,10 @@ module HanamiBookshelf
   module Views
     module Books
       class Index < HanamiBookshelf::View
+        include Deps["repos.book_repo"]
+
         expose :books do
-          [
-            {title: "Test Driven Development"},
-            {title: "Practical Object-Oriented Design in Ruby"}
-          ]
+          book_repo.all_by_title
         end
       end
     end
