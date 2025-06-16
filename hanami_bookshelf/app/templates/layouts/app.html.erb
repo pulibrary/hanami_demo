@@ -8,6 +8,14 @@
     <%= stylesheet_tag "app" %>
   </head>
   <body>
+    <h1>Hanami Bookshelf</h1>
+    <% if flash[:alert] %>
+      <p><%= flash[:alert] %></p>
+    <% end %>
+    <% if flash[:notice] %>
+      <p><%= flash[:notice] %></p>
+    <% end %>
+
     <%= yield %>
     <%= javascript_tag "app" %>
   </body>
