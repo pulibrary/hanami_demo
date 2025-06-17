@@ -33,63 +33,63 @@ books.insert(title: "Test Driven Development", author: "Kent Beck")
 1. bundle install
   
 1. Create the hanami config `config/app.rb`
-  ```
+   ```
 
-    require "hanami"
+   require "hanami"
 
-    module Bookshelf
-        class App < Hanami::App
-            config.actions.sessions = :cookie, {
+   module Bookshelf
+     class App < Hanami::App
+        config.actions.sessions = :cookie, {
             key: "bookshelf.session",
             secret: settings.session_secret,
             expire_after: 60*60*24*365
-            }
-        end
-    end
-  ```
+        }
+     end
+   end
+   ```
   
 1. Create the hanami settings config `config/settings.rb`
-  ```
-  module Bookshelf
-    class Settings < Hanami::Settings
+   ```
+   module Bookshelf
+     class Settings < Hanami::Settings
         # Define your app settings here, for example:
         #
         # setting :my_flag, default: false, constructor: Types::Params::Bool
         setting :session_secret, constructor: Types::String
-    end
-  end
-  ```
-
-1. Hanami expects a `.env` file instead of the `config/environment.rb`  We could likely do something to read in the rails environment, but for the moment, just create the `.env` file and add the session secret
-  ```
-  # This is checked into source control, so put sensitive values into `.env.local`
-    DATABASE_URL=sqlite://storage/test.sqlite3
-    SESSION_SECRET=__local_development_secret_only__
-  ```
-
-1. run hanami install to update rspec
-  ```
-  bundle exec hanami install
-  ```
-
-1. Update the specs to not use rails
-  1. require that in all the test files
-    replace `require "rails_helper"` with `require "spec_helper"` 
-
-1. Configure the Routes `config/routes.rb`
-  1. change the outer config to look like and remove rails references
-   ```
-   module Bookshelf
-     class Routes < Hanami::Routes
-     ...
      end
    end
    ```
-  1. replace each `resources <>` with a set of hanami routes
-    ```
-    get "/books", to: "books.index"
-    get "/books/:id", to: "books.show"
-    get "/books/:id", to: "books.show", as: :show_book
-    get "/books/new", to: "books.new"
-    post "/books", to: "books.create", as: :create_book
-    ```
+
+1. Hanami expects a `.env` file instead of the `config/environment.rb`  We could likely do something to read in the rails environment, but for the moment, just create the `.env` file and add the session secret
+   ```
+   # This is checked into source control, so put sensitive values into `.env.local`
+   DATABASE_URL=sqlite://storage/test.sqlite3
+   SESSION_SECRET=__local_development_secret_only__
+   ```
+
+1. run hanami install to update rspec
+   ```
+   bundle exec hanami install
+   ```
+
+1. Update the specs to not use rails
+   1. require that in all the test files
+      replace `require "rails_helper"` with `require "spec_helper"` 
+
+1. Configure the Routes `config/routes.rb`
+   1. change the outer config to look like and remove rails references
+      ```
+      module Bookshelf
+        class Routes < Hanami::Routes
+        ...
+        end
+      end
+      ```
+   1. replace each `resources <>` with a set of hanami routes
+      ```
+      get "/books", to: "books.index"
+      get "/books/:id", to: "books.show"
+      get "/books/:id", to: "books.show", as: :show_book
+      get "/books/new", to: "books.new"
+      post "/books", to: "books.create", as: :create_book
+      ```
