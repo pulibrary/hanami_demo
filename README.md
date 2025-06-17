@@ -47,6 +47,7 @@ books.insert(title: "Test Driven Development", author: "Kent Beck")
         end
     end
   ```
+  
 1. Create the hanami settings config `config/settings.rb`
   ```
   module Bookshelf
@@ -58,6 +59,7 @@ books.insert(title: "Test Driven Development", author: "Kent Beck")
     end
   end
   ```
+
 1. Hanami expects a `.env` file instead of the `config/environment.rb`  We could likely do something to read in the rails environment, but for the moment, just create the `.env` file and add the session secret
   ```
   # This is checked into source control, so put sensitive values into `.env.local`
@@ -73,3 +75,21 @@ books.insert(title: "Test Driven Development", author: "Kent Beck")
 1. Update the specs to not use rails
   1. require that in all the test files
     replace `require "rails_helper"` with `require "spec_helper"` 
+
+1. Configure the Routes `config/routes.rb`
+  1. change the outer config to look like and remove rails references
+   ```
+   module Bookshelf
+     class Routes < Hanami::Routes
+     ...
+     end
+   end
+   ```
+  1. replace each `resources <>` with a set of hanami routes
+    ```
+    get "/books", to: "books.index"
+    get "/books/:id", to: "books.show"
+    get "/books/:id", to: "books.show", as: :show_book
+    get "/books/new", to: "books.new"
+    post "/books", to: "books.create", as: :create_book
+    ```
