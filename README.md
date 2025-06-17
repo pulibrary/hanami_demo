@@ -93,3 +93,29 @@ books.insert(title: "Test Driven Development", author: "Kent Beck")
       get "/books/new", to: "books.new"
       post "/books", to: "books.create", as: :create_book
       ```
+
+1. For each rout you need to define a Hanami action, which will be a part of the original controller.  In hanami each action is it's own class
+
+
+1. Create the needed database files
+   1. `mkdir app/db`
+   1. download `relation.rb`, `repo.rb` and `struct.rb` from https://github.com/hanami/cli/blob/main/lib/hanami/cli/generators/gem/app into the db directory
+   1. Update each file to have your application name ( `Bookshelf`)
+
+1. Make sure the .env file is pointed at your rails database in storage. for example `sqlite://storage/development.sqlite3`
+
+1. Convert your model(s)
+  A Rails model is a combination of a Hanami Relation and a Hanami Repo.  The relation includes the tasks to load and store the data.  The repo includes the task to find the data.
+   1. creating the repo `bundle exec hanami generate relation books`
+     This will create a file `app/relations/books.rb`
+     At this point we will not add any additional code into the repo.  Note it infers the columns from the database
+
+     1. test that you still have access to your old database objects by running
+        ```
+        hanami console
+        books = Hanami.app["relations.books"]
+        books.to_a
+        ```
+        Should return a list of existing books
+    1. creating the relation `bundle exec hanami generate repo book`
+       Again at this point we are not making any changes, but this is where we would put custom queries
