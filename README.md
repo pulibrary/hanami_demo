@@ -24,3 +24,16 @@ books = Hanami.app["relations.books"]
 books.insert(title: "Practical Object-Oriented Design in Ruby", author: "Sandi Metz")
 books.insert(title: "Test Driven Development", author: "Kent Beck")
 ```
+
+## Conversion
+
+1. update the Gemfile
+  find any rails gems and replace them with hanami if a hanami gem exists
+
+1. bundle install
+
+1. Update the spec helper to not use rails
+  1. create a hanami helper file
+  1. include hanami spec information
+  1. require that in all the test files
+  
