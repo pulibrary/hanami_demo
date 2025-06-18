@@ -24,3 +24,6 @@ books = Hanami.app["relations.books"]
 books.insert(title: "Practical Object-Oriented Design in Ruby", author: "Sandi Metz")
 books.insert(title: "Test Driven Development", author: "Kent Beck")
 ```
+
+## Conversion Rails to Hanami
+
