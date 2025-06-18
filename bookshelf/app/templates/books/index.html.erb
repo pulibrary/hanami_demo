@@ -1,0 +1,17 @@
+<h1>Bookshelf::Views::Books::Index</h1>
+<p style="color: green"><%# TODO: we need flash messages =  notice %></p>
+
+<% content_for :title, "Books" %>
+
+<h1>Welcome to Rails Bookshelf</h1>
+
+<div id="books">
+  <% books.each do |book| %>
+    <%= render "book", book: book %>
+    <p>
+      <% # TODO: we need links = link_to "Show this book", book %>
+    </p>
+  <% end %>
+</div>
+
+<% # TODO: we need links = link_to "New book", new_book_path %>
