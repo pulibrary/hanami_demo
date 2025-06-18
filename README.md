@@ -117,5 +117,17 @@ books.insert(title: "Test Driven Development", author: "Kent Beck")
         books.to_a
         ```
         Should return a list of existing books
-    1. creating the relation `bundle exec hanami generate repo book`
+   1. creating the relation `bundle exec hanami generate repo book`
        Again at this point we are not making any changes, but this is where we would put custom queries
+   1. convert references to the model in your tests
+      1. Book.last becomes
+         ```
+         books =  Hanami.app["relations.books"]
+         books.last
+         ```
+      1. Book.create becomes
+         ```
+         books =  Hanami.app["relations.books"]
+         books.insert
+         ```
+  

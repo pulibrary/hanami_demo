@@ -1,6 +1,7 @@
 require "spec_helper"
 
 RSpec.describe "books/", type: :system do
+    let(:books) {  Hanami.app["relations.books"]}
 
     it "visits the home page and shows a welcome message" do
       visit "/books"
@@ -9,8 +10,8 @@ RSpec.describe "books/", type: :system do
     end
 
     it "shows books on the index" do
-      Book.create(title: "book 1", author: "author 1")
-      Book.create(title: "book 2", author: "author 2")
+      books.insert(title: "book 1", author: "author 1", created_at: Time.now, updated_at: Time.now)
+      books.insert(title: "book 2", author: "author 2", created_at: Time.now, updated_at: Time.now)
       visit "/books"
   
       expect(page).to have_content "Title: book 1"
