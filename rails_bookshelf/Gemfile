@@ -34,7 +34,7 @@ group :cli, :development, :test do
 
   gem "hanami-rspec", "~> 2.2"
 
-  gem 'byebug'
+  gem "byebug", platforms: :mri
 end
 
 group :development do
@@ -57,22 +57,4 @@ group :test do
   gem "capybara"
   gem "rack-test"
   gem "selenium-webdriver"
-end
-
-group :test do
-  # Database
-  gem "database_cleaner-sequel"
-
-  # Web integration
-  gem "capybara"
-  gem "rack-test"
-end
-
-group :test do
-  # Database
-  gem "database_cleaner-sequel"
-
-  # Web integration
-  gem "capybara"
-  gem "rack-test"
 end

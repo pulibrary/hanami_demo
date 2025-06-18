@@ -2,7 +2,7 @@
 
 require "hanami/db/struct"
 
-module <%= camelized_app_name %>
+module Bookshelf
   module DB
     class Struct < Hanami::DB::Struct
     end

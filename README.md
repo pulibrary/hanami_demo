@@ -125,9 +125,34 @@ books.insert(title: "Test Driven Development", author: "Kent Beck")
          books =  Hanami.app["relations.books"]
          books.last
          ```
-      1. Book.create becomes
+      1. Book.create becomes (you need to set the times `, created_at: Time.now, updated_at: Time.now`)
          ```
          books =  Hanami.app["relations.books"]
          books.insert
          ```
-  
+1. Convert your Controllers into actions
+   In Haanami controllers are broken out into a separate class for every action (or route) in the controller
+   1. create `app/action.rb` by copying the contents of https://github.com/hanami/cli/blob/main/lib/hanami/cli/generators/gem/app/action.erb Updating the name to be `Bookshelf`
+   1. create `app/view.rb` by copying the contents of https://github.com/hanami/cli/blob/main/lib/hanami/cli/generators/gem/app/view.erb Updating the name to be `Bookshelf`
+   1. create `app/templates/layouts/app/html.erb` by copying the contents of https://github.com/hanami/cli/blob/main/lib/hanami/cli/generators/gem/app/app_layout.erb Updating the name to be `Bookshelf`
+      ```
+      mkdir app/templates/layouts 
+      cd app/templates/layouts
+      wget https://raw.githubusercontent.com/hanami/cli/refs/heads/main/lib/hanami/cli/generators/gem/app/app_layout.erb
+      mv app_layout.erb app.html.erb
+      cd -
+      ```
+   1. generate an action for each route
+      ```
+      bundle exec hanami generate action books.index --skip-tests
+      ```
+   1. copy the code from the old controller into the action
+   1. convert @ values `@books` into an expose in the view
+      ```
+        include Deps["repos.book_repo"]
+
+        expose :books do
+          book_repo.all
+        end
+      ```
+
