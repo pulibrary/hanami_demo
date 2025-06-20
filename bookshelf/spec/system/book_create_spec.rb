@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe "books/new", type: :system do
-    let(:books) { Hanami.app["relations.books"] }
+    let(:book_repo) { Bookshelf::Repos::BookRepo.new }
 
     it "visits the home page and shows a welcome message" do
       visit "/books/new"
@@ -11,7 +11,7 @@ RSpec.describe "books/new", type: :system do
 
       click_on "Create Book"
       expect(page).to have_content("Book was successfully created")
-      book = books.last
+      book = book_repo.last
       expect(book.title).to eq("awesome book")
       expect(book.author).to eq("Jane Doe")
     end

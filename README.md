@@ -93,8 +93,7 @@ books.insert(title: "Test Driven Development", author: "Kent Beck")
   A Rails model is a combination of a Hanami Relation and a Hanami Repo.  The relation includes the tasks to load and store the data.  The repo includes the task to find the data.
    1. creating the repo `bundle exec hanami generate relation books`
      This will create a file `app/relations/books.rb`
-     At this point we will not add any additional code into the repo.  Note it infers the columns from the database
-
+     At this point we will not add any additional code into the relation.  Note it infers the columns from the database
      1. test that you still have access to your old database objects by running
         ```
         hanami console
@@ -103,17 +102,29 @@ books.insert(title: "Test Driven Development", author: "Kent Beck")
         ```
         Should return a list of existing books
    1. creating the repo `bundle exec hanami generate repo book`
-       Again at this point we are not making any changes, but this is where we would put custom queries
+     1. define last on the repo in `app/repos/book_repo.rb` by adding the following code
+        ```
+        def last = books.last
+        ```
+     1. define create on the repo in `app/repos/book_repo.rb` by adding the following code
+        ```
+        def create(attributes)
+            attributes[:created_at] = Time.now
+            attributes[:updated_at] = Time.now
+            books.changeset(:create, attributes).commit
+        end
+        ```
+
    1. convert references to the model in your tests
       1. Book.last becomes
          ```
-         books =  Hanami.app["relations.books"]
-         books.last
+         book_repo =  Bookshelf::Repos::BookRepo.new
+         book_repo.last
          ```
-      1. Book.create becomes (you need to set the times `, created_at: Time.now, updated_at: Time.now`)
+      1. Book.create becomes
          ```
-         books =  Hanami.app["relations.books"]
-         books.insert
+         book_repo =  Bookshelf::Repos::BookRepo.new
+         book_repo.create()
          ```
    1. re-run your tests.  You should no longer get any `uninitialized constant Book` errors, but they should all still fail
 1. Convert you controller(s)
@@ -141,6 +152,6 @@ books.insert(title: "Test Driven Development", author: "Kent Beck")
          1. modify any link_to to include the `route.` in front of the name and make sure the route is named in `config/routes.rb`
          1. change and flash messages `notice` to `flash[:notice]`
       1. make changes to make th tests pass
-   1. Choose another action and repeat until you have done all the actions
+   1. Choose another action and repeat until you have done all the actions.  Remember for a form you need both the form show and   form submit actions
 
 
