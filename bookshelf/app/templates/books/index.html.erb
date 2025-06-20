@@ -1,5 +1,5 @@
 <h1>Bookshelf::Views::Books::Index</h1>
-<p style="color: green"><%# TODO: we need flash messages =  notice %></p>
+<p style="color: green"><%=  flash[:notice] %></p>
 
 <% content_for :title, "Books" %>
 
@@ -9,9 +9,9 @@
   <% books.each do |book| %>
     <%= render "book", book: book %>
     <p>
-      <% # TODO: we need links = link_to "Show this book", book %>
+      <% # TODO: we need to define show = link_to "Show this book", routes.book_show_path %>
     </p>
   <% end %>
 </div>
 
-<% # TODO: we need links = link_to "New book", new_book_path %>
+<% # TODO: we need to define new = link_to "New book", routes.new_book_path %>

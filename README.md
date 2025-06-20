@@ -138,6 +138,9 @@ books.insert(title: "Test Driven Development", author: "Kent Beck")
       1. copy the rails view `rails_bookshelf/app/views/books/index.html.erb` into the hanami template director `bookshelf/app/templates/books/index.html.erb`
          1. change any `@books` to the expose `books` in the template
          1. change any `render...` to include the name of the partial and the locals needed explicitly (you can no longer render a model and expect the partial to be chosen)
-         1. change any link_to to...
-         1. change and flash messages to ...
+         1. modify any link_to to include the `route.` in front of the name and make sure the route is named in `config/routes.rb`
+         1. change and flash messages `notice` to `flash[:notice]`
+      1. make changes to make th tests pass
+   1. Choose another action and repeat until you have done all the actions
+
 
