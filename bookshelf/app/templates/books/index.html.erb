@@ -9,9 +9,9 @@
   <% books.each do |book| %>
     <%= render "book", book: book %>
     <p>
-      <% # TODO: we need to define show = link_to "Show this book", routes.book_show_path %>
+      <%= link_to "Show this book", routes.path(:show_book, id: book.id) %>
     </p>
   <% end %>
 </div>
 
-<% # TODO: we need to define new = link_to "New book", routes.new_book_path %>
+<%= link_to "New book", routes.path(:new_book) %>
