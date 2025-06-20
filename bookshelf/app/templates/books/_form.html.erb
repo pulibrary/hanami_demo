@@ -1,5 +1,5 @@
-<%= form_for :book, routes.path(:create_book) do |form| %>
-  <% if book && book.errors.any? %>
+<%= form_for form_path, method: form_method, values: {book: } do |form| %>
+  <% if false && book && book.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
 
@@ -12,13 +12,13 @@
   <% end %>
 
   <div>
-    <%= form.label :author, style: "display: block" %>
-    <%= form.text_field :author %>
+    <%= form.label "book.author", style: "display: block" %>
+    <%= form.text_field "book.author" %>
   </div>
 
   <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+    <%= form.label "book.title", style: "display: block" %>
+    <%= form.text_field "book.title" %>
   </div>
 
   <div>

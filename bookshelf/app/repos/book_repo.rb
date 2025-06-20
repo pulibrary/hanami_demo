@@ -14,6 +14,11 @@ module Bookshelf
         books.changeset(:create, attributes).commit
       end
 
+      def update(id, attributes)
+        attributes[:updated_at] = Time.now
+        books.by_pk(id).changeset(:update, attributes).commit
+      end
+
       def last = books.last
     end
   end

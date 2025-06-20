@@ -8,5 +8,7 @@ module Bookshelf
     get "/books/:id", to: "books.show", as: :show_book
     get "/books/new", to: "books.new", as: :new_book
     post "/books", to: "books.create", as: :create_book
+    get "/books/:id/edit", to: "books.edit", as: :edit_book
+    patch "/books/:id", to: "books.update", as: :update_book
   end
 end
